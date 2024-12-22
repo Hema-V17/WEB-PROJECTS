@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Form</title>
+
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+<center>
+<h1>STUDENT FORM</h1>
+
+<form id="studentForm">
+ <table>
+   <tr>
+     <td>Name</td>
+     <td><input type="text" placeholder="Enter your name" id="name" required></td>
+  </tr>
+  <tr>
+     <td>Age</td>
+     <td><input type="number" placeholder="Enter your age" id="age" required></td>
+  </tr>
+  <tr>
+    <td>Gender</td>
+    <td><input type="radio" name="gender" value="Male" id="male">Male
+        <input type="radio" name="gender" value="Female" id="female">Female
+    </td>
+  </tr>
+  <tr>
+    <td>Course</td>
+    <td>
+    <select id="course">
+       <option value="HTML">HTML</option>
+       <option value="CSS">CSS</option>
+       <option value="Javascript">Javascript</option>
+       <option value="Java">Java</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"> 
+      <button type="button" onclick="save()">SAVE</button>
+    </td>
+  </tr>
+ </table>
+</form>
+</center>
+
+<table id="studentTable">
+   <thead>
+     <tr>
+       <th>NAME</th>
+       <th>AGE</th>
+       <th>GENDER</th>
+       <th>COURSE</th>
+       <th>ACTION</th>
+      </tr>
+   </thead>
+   <tbody>
+   </tbody>
+</table>
+
+
+
+<script>
+  function save()
+  {
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const course = document.getElementById("course").value;
+
+
+    if(!gender){
+       alert("Please select a gender.");
+       return;
+    }
+
+    const genderValue = gender.value;
+
+    const table = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+    const newRow = table.insertRow();
+
+    const nameCell = newRow.insertCell(0);
+    const ageCell = newRow.insertCell(1);
+    const genderCell = newRow.insertCell(2);
+    const courseCell = newRow.insertCell(3);
+    const actionCell = newRow.insertCell(4);
+
+    nameCell.textContent = name;
+    ageCell.textContent = age;
+    genderCell.textContent = genderValue;
+    courseCell.textContent = course;
+    
+   const deleteButton = document.createElement("button");
+   deleteButton.textContent = "Delete";
+   deleteButton.onclick = function () {
+   table.deleteRow(newRow.rowIndex - 1);
+    };
+    actionCell.appendChild(deleteButton);
+
+  document.getElementById("studentForm").reset();
+ }
+
+</script>
+
+</body>
+</html>
